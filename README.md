@@ -1,3 +1,8 @@
+![PSScriptAnalyzer](https://github.com/Jarnon404/powershell-audit-scripts/actions/workflows/psscriptanalyzer.yml/badge.svg)
+![Secret Scan](https://github.com/Jarnon404/powershell-audit-scripts/actions/workflows/gitleaks.yml/badge.svg)
+![License](https://img.shields.io/github/license/Jarnon404/powershell-audit-scripts)
+![Release](https://img.shields.io/github/v/release/Jarnon404/powershell-audit-scripts)
+![Repo Size](https://img.shields.io/github/repo-size/Jarnon404/powershell-audit-scripts)
 # PowerShell Audit Scripts
 
 PowerShell audit and reporting scripts for Windows Server, Active Directory, Group Policy, Microsoft 365, Exchange Online, Entra ID and Intune environments.

@@ -1,9 +1,9 @@
-<#
+﻿<#
 .SYNOPSIS
     Server Ping Availability Report.
 
 .DESCRIPTION
-    Testaa määriteltyjen palvelimien ICMP-saavutettavuuden ja muodostaa yksinkertaisen saatavuusraportin.
+    Testaa mÃ¤Ã¤riteltyjen palvelimien ICMP-saavutettavuuden ja muodostaa yksinkertaisen saatavuusraportin.
 
 .REQUIREMENTS
     - Verkkoyhteys kohdepalvelimiin ja ICMP sallittuna
@@ -12,7 +12,7 @@
     - HTML/CSV-raportti palvelimien ping-tilasta
 
 .EXAMPLE
-    .\Test-ServerPingAvailabilityReport.ps1 -HostsToTest "server01.contoso.local","server02.contoso.local"
+    .\Test-ServerPingAvailabilityReport.ps1 -HostsToTest "server01.example.com","server02.example.com"
 
 .NOTES
     Author: Repository maintainer
@@ -39,7 +39,7 @@ param(
 $ErrorActionPreference = "Stop"
 
 if (-not $HostsToTest -or $HostsToTest.Count -eq 0) {
-    throw "No hosts were provided. Use -HostsToTest or wrap this script with your own environment-specific host source. Example: .\Test-ServerPingAvailabilityReport.ps1 -HostsToTest 'server01.contoso.local','server02.contoso.local'"
+    throw "No hosts were provided. Use -HostsToTest or wrap this script with your own environment-specific host source. Example: .\Test-ServerPingAvailabilityReport.ps1 -HostsToTest 'server01.example.com','server02.example.com'"
 }
 
 
@@ -152,7 +152,7 @@ $JobScript = {
 }
 
 # ---------------------------------------
-# Jobit käyntiin throttlen kanssa
+# Jobit kÃ¤yntiin throttlen kanssa
 # ---------------------------------------
 $Jobs = New-Object System.Collections.ArrayList
 $Started = 0
@@ -164,7 +164,7 @@ foreach ($HostName in $HostsToTest) {
     }
 
     $Started++
-    Write-Progress -Activity "Käynnistetään ping-jobit" `
+    Write-Progress -Activity "KÃ¤ynnistetÃ¤Ã¤n ping-jobit" `
                    -Status "$Started / $Total : $HostName" `
                    -PercentComplete (($Started / $Total) * 100)
 
@@ -191,7 +191,7 @@ while ($Completed -lt $Total)
 Write-Progress -Activity "Odotetaan jobien valmistumista" -Completed
 
 # ---------------------------------------
-# Kerää tulokset
+# KerÃ¤Ã¤ tulokset
 # ---------------------------------------
 $Results = foreach ($job in $Jobs) {
     try {
@@ -216,12 +216,12 @@ $Results = foreach ($job in $Jobs) {
 $Jobs | Remove-Job -Force -ErrorAction SilentlyContinue
 
 # ---------------------------------------
-# Järjestys
+# JÃ¤rjestys
 # ---------------------------------------
 $Results = $Results | Sort-Object HostName
 
 # ---------------------------------------
-# Filtteröinti
+# FiltterÃ¶inti
 # ---------------------------------------
 $FilteredResults = switch ($Filter) {
     "SuccessOnly" { $Results | Where-Object { $_.Success -eq $true } }
@@ -340,7 +340,7 @@ tr.fail td {
 
     <div class="cards">
         <div class="card">
-            <div class="label">Yhteensä</div>
+            <div class="label">YhteensÃ¤</div>
             <div class="value">$TotalCount</div>
         </div>
         <div class="card">
@@ -348,11 +348,11 @@ tr.fail td {
             <div class="value">$SuccessCount</div>
         </div>
         <div class="card">
-            <div class="label">Epäonnistuneet</div>
+            <div class="label">EpÃ¤onnistuneet</div>
             <div class="value">$FailedCount</div>
         </div>
         <div class="card">
-            <div class="label">Näytetyt rivit</div>
+            <div class="label">NÃ¤ytetyt rivit</div>
             <div class="value">$(@($FilteredResults).Count)</div>
         </div>
     </div>
@@ -376,7 +376,7 @@ tr.fail td {
     </table>
 
     <p class="small">
-        Success = host vastasi ICMP-pingiin. Reply IP kertoo miltä osoitteelta vastaus tuli. Reverse DNS yrittää tehdä PTR-haun vastaavalle IP:lle.
+        Success = host vastasi ICMP-pingiin. Reply IP kertoo miltÃ¤ osoitteelta vastaus tuli. Reverse DNS yrittÃ¤Ã¤ tehdÃ¤ PTR-haun vastaavalle IP:lle.
     </p>
 </body>
 </html>
@@ -385,7 +385,7 @@ tr.fail td {
 Set-Content -Path $HtmlPath -Value $Html -Encoding UTF8
 
 # ---------------------------------------
-# Ruutunäkymä
+# RuutunÃ¤kymÃ¤
 # ---------------------------------------
 $FilteredResults |
     Select-Object HostName, ResolvedIPv4, ReplyIP, ReplyReverseDNS, Status, ResponseTimeMs, Error |

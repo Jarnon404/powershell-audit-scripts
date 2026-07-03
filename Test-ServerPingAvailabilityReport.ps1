@@ -1,9 +1,9 @@
-﻿<#
+<#
 .SYNOPSIS
     Server Ping Availability Report.
 
 .DESCRIPTION
-    Testaa mÃ¤Ã¤riteltyjen palvelimien ICMP-saavutettavuuden ja muodostaa yksinkertaisen saatavuusraportin.
+    Testaa määriteltyjen palvelimien ICMP-saavutettavuuden ja muodostaa yksinkertaisen saatavuusraportin.
 
 .REQUIREMENTS
     - Verkkoyhteys kohdepalvelimiin ja ICMP sallittuna
@@ -152,7 +152,7 @@ $JobScript = {
 }
 
 # ---------------------------------------
-# Jobit kÃ¤yntiin throttlen kanssa
+# Jobit käyntiin throttlen kanssa
 # ---------------------------------------
 $Jobs = New-Object System.Collections.ArrayList
 $Started = 0
@@ -164,7 +164,7 @@ foreach ($HostName in $HostsToTest) {
     }
 
     $Started++
-    Write-Progress -Activity "KÃ¤ynnistetÃ¤Ã¤n ping-jobit" `
+    Write-Progress -Activity "Käynnistetään ping-jobit" `
                    -Status "$Started / $Total : $HostName" `
                    -PercentComplete (($Started / $Total) * 100)
 
@@ -191,7 +191,7 @@ while ($Completed -lt $Total)
 Write-Progress -Activity "Odotetaan jobien valmistumista" -Completed
 
 # ---------------------------------------
-# KerÃ¤Ã¤ tulokset
+# Kerää tulokset
 # ---------------------------------------
 $Results = foreach ($job in $Jobs) {
     try {
@@ -216,12 +216,12 @@ $Results = foreach ($job in $Jobs) {
 $Jobs | Remove-Job -Force -ErrorAction SilentlyContinue
 
 # ---------------------------------------
-# JÃ¤rjestys
+# Järjestys
 # ---------------------------------------
 $Results = $Results | Sort-Object HostName
 
 # ---------------------------------------
-# FiltterÃ¶inti
+# Filtteröinti
 # ---------------------------------------
 $FilteredResults = switch ($Filter) {
     "SuccessOnly" { $Results | Where-Object { $_.Success -eq $true } }
@@ -340,7 +340,7 @@ tr.fail td {
 
     <div class="cards">
         <div class="card">
-            <div class="label">YhteensÃ¤</div>
+            <div class="label">Yhteensä</div>
             <div class="value">$TotalCount</div>
         </div>
         <div class="card">
@@ -348,11 +348,11 @@ tr.fail td {
             <div class="value">$SuccessCount</div>
         </div>
         <div class="card">
-            <div class="label">EpÃ¤onnistuneet</div>
+            <div class="label">Epäonnistuneet</div>
             <div class="value">$FailedCount</div>
         </div>
         <div class="card">
-            <div class="label">NÃ¤ytetyt rivit</div>
+            <div class="label">Näytetyt rivit</div>
             <div class="value">$(@($FilteredResults).Count)</div>
         </div>
     </div>
@@ -376,7 +376,7 @@ tr.fail td {
     </table>
 
     <p class="small">
-        Success = host vastasi ICMP-pingiin. Reply IP kertoo miltÃ¤ osoitteelta vastaus tuli. Reverse DNS yrittÃ¤Ã¤ tehdÃ¤ PTR-haun vastaavalle IP:lle.
+        Success = host vastasi ICMP-pingiin. Reply IP kertoo miltä osoitteelta vastaus tuli. Reverse DNS yrittää tehdä PTR-haun vastaavalle IP:lle.
     </p>
 </body>
 </html>
@@ -385,7 +385,7 @@ tr.fail td {
 Set-Content -Path $HtmlPath -Value $Html -Encoding UTF8
 
 # ---------------------------------------
-# RuutunÃ¤kymÃ¤
+# Ruutunäkymä
 # ---------------------------------------
 $FilteredResults |
     Select-Object HostName, ResolvedIPv4, ReplyIP, ReplyReverseDNS, Status, ResponseTimeMs, Error |

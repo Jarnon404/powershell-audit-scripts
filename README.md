@@ -5,11 +5,19 @@
 ![Repo Size](https://img.shields.io/github/repo-size/Jarnon404/powershell-audit-scripts)
 # PowerShell Audit Scripts
 
+## Documentation
+
+[Project documentation](https://jarnon404.github.io/powershell-audit-scripts/)
+
 PowerShell audit and reporting scripts for Windows Server, Active Directory, Group Policy, Microsoft 365, Exchange Online, Entra ID and Intune environments.
 
 The scripts are intended for inventory, audit, reporting and operational visibility. Review each script before use and test in a non-production environment before running in production.
 
 ## Important disclaimer
+
+## Documentation
+
+[Project documentation](https://jarnon404.github.io/powershell-audit-scripts/)
 
 Some parts of this repository may have been developed with assistance from ChatGPT/OpenAI and then reviewed, modified and maintained by the repository author.
 
@@ -18,6 +26,10 @@ Use these scripts at your own risk. They are provided as-is, without warranty. A
 Read the full disclaimer here: [DISCLAIMER.md](DISCLAIMER.md)
 
 ## Scripts
+
+## Documentation
+
+[Project documentation](https://jarnon404.github.io/powershell-audit-scripts/)
 
 | Script | Name | Description |
 |---|---|---|
@@ -45,6 +57,10 @@ Read the full disclaimer here: [DISCLAIMER.md](DISCLAIMER.md)
 
 ## Documentation
 
+## Documentation
+
+[Project documentation](https://jarnon404.github.io/powershell-audit-scripts/)
+
 Each script has a dedicated Markdown description under:
 
 ```text
@@ -57,6 +73,10 @@ Repository-level documents:
 - [SECURITY.md](SECURITY.md)
 
 ## Repository layout
+
+## Documentation
+
+[Project documentation](https://jarnon404.github.io/powershell-audit-scripts/)
 
 ```text
 .
@@ -71,6 +91,10 @@ Repository-level documents:
 
 ## General usage
 
+## Documentation
+
+[Project documentation](https://jarnon404.github.io/powershell-audit-scripts/)
+
 Run scripts from an elevated or appropriately permissioned PowerShell session when required.
 
 ```powershell
@@ -81,10 +105,18 @@ Many scripts create HTML and CSV reports in a local output folder. Review output
 
 ## Security note
 
+## Documentation
+
+[Project documentation](https://jarnon404.github.io/powershell-audit-scripts/)
+
 Generated reports can contain sensitive operational information. Do not commit generated reports to a public repository unless they have been reviewed and sanitized.
 
 <!-- SCRIPT-CATALOG-START -->
 ## Script catalog
+
+## Documentation
+
+[Project documentation](https://jarnon404.github.io/powershell-audit-scripts/)
 
 | Script | Area | Purpose | Risk level |
 |---|---|---|---|

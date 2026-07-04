@@ -100,8 +100,11 @@ Run scripts from an elevated or appropriately permissioned PowerShell session wh
 
 Many scripts create HTML and CSV reports in a local output folder. Review output files before sharing them outside your organization.
 
-## Security note
 
+## License
+
+This repository is licensed under the [MIT License](LICENSE).
+## Security note
 Generated reports can contain sensitive operational information. Do not commit generated reports to a public repository unless they have been reviewed and sanitized.
 
 <!-- SCRIPT-CATALOG-START -->

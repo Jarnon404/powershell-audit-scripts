@@ -90,6 +90,7 @@ This repository uses GitHub Actions and branch protection to keep public reposit
 The `main` branch is protected and requires these checks before changes can be merged.
 
 See also: [Quality and safety model](docs/quality-and-safety.md)
+
 ## General usage
 Run scripts from an elevated or appropriately permissioned PowerShell session when required.
 

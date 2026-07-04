@@ -1,5 +1,7 @@
 ![PSScriptAnalyzer](https://github.com/Jarnon404/powershell-audit-scripts/actions/workflows/psscriptanalyzer.yml/badge.svg)
 ![Secret Scan](https://github.com/Jarnon404/powershell-audit-scripts/actions/workflows/gitleaks.yml/badge.svg)
+![Pester Tests](https://github.com/Jarnon404/powershell-audit-scripts/actions/workflows/pester.yml/badge.svg)
+![Public Safety Check](https://github.com/Jarnon404/powershell-audit-scripts/actions/workflows/public-safety-check.yml/badge.svg)
 ![License](https://img.shields.io/github/license/Jarnon404/powershell-audit-scripts)
 ![Release](https://img.shields.io/github/v/release/Jarnon404/powershell-audit-scripts)
 ![Repo Size](https://img.shields.io/github/repo-size/Jarnon404/powershell-audit-scripts)
@@ -73,8 +75,23 @@ Repository-level documents:
         `-- <script-specific documentation>.md
 ```
 
-## General usage
 
+## Quality and safety checks
+
+This repository uses GitHub Actions and branch protection to keep public repository quality under control.
+
+| Check | Purpose |
+|---|---|
+| PSScriptAnalyzer | Static analysis for PowerShell scripts |
+| Secret Scan / Gitleaks | Detects accidentally committed secrets |
+| Pester Tests | Repository smoke tests and script validation |
+| Public Safety Check | Detects generated output files and unsafe public markers |
+
+The `main` branch is protected and requires these checks before changes can be merged.
+
+See also: [Quality and safety model](docs/quality-and-safety.md)
+
+## General usage
 Run scripts from an elevated or appropriately permissioned PowerShell session when required.
 
 ```powershell

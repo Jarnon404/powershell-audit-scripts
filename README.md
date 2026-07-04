@@ -104,6 +104,7 @@ Many scripts create HTML and CSV reports in a local output folder. Review output
 ## License
 
 This repository is licensed under the [MIT License](LICENSE).
+
 ## Security note
 Generated reports can contain sensitive operational information. Do not commit generated reports to a public repository unless they have been reviewed and sanitized.
 

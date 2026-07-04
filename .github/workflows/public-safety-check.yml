@@ -1,0 +1,90 @@
+﻿name: Public Safety Check
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  public-safety-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check for unsafe public repository content
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+
+          $RepoRoot = Resolve-Path "."
+          $AllowedGeneratedFiles = @()
+
+          $OutputExtensions = @(
+            ".csv",
+            ".xlsx",
+            ".html",
+            ".json",
+            ".log",
+            ".zip",
+            ".7z",
+            ".bak",
+            ".tmp"
+          )
+
+          $Files = Get-ChildItem $RepoRoot -Recurse -File |
+            Where-Object {
+              $_.FullName -notmatch "[\\/]\.git[\\/]" -and
+              $_.FullName -notmatch "[\\/]\.github[\\/]workflows[\\/]"
+            }
+
+          $OutputFindings = $Files |
+            Where-Object {
+              $OutputExtensions -contains $_.Extension.ToLowerInvariant() -and
+              $AllowedGeneratedFiles -notcontains $_.Name
+            }
+
+          if ($OutputFindings) {
+            Write-Host "Generated or output-like files found:" -ForegroundColor Red
+            $OutputFindings | Select-Object FullName | Format-Table -AutoSize
+            throw "Public safety check failed: generated/output files must not be committed."
+          }
+
+          $Patterns = [ordered]@{
+            "Internal domain: .local" = "\.local\b"
+            "Internal domain: .lan" = "\.lan\b"
+            "Internal domain: .corp" = "\.corp\b"
+            "Internal LDAP distinguished name domain component" = "\bdc=[a-z0-9\-_]+"
+            "Private IPv4: 10.x.x.x" = "\b10\.(25[0-5]|2[0-4]\d|1?\d?\d)\.(25[0-5]|2[0-4]\d|1?\d?\d)\.(25[0-5]|2[0-4]\d|1?\d?\d)\b"
+            "Private IPv4: 172.16-31.x.x" = "\b172\.(1[6-9]|2\d|3[0-1])\.(25[0-5]|2[0-4]\d|1?\d?\d)\.(25[0-5]|2[0-4]\d|1?\d?\d)\b"
+            "Private IPv4: 192.168.x.x" = "\b192\.168\.(25[0-5]|2[0-4]\d|1?\d?\d)\.(25[0-5]|2[0-4]\d|1?\d?\d)\b"
+            "Possible tenant/client GUID literal" = "\b[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\b"
+            "Possible secret assignment" = "(?i)(secret|clientsecret|password|token|apikey|api_key)\s*[:=]\s*['""][^'""]{8,}['""]"
+          }
+
+          $Findings = foreach ($File in $Files) {
+            $Content = Get-Content $File.FullName -Raw -ErrorAction SilentlyContinue
+
+            foreach ($Item in $Patterns.GetEnumerator()) {
+              if ($Content -match $Item.Value) {
+                [pscustomobject]@{
+                  File = $File.FullName.Replace("$RepoRoot", ".")
+                  Finding = $Item.Key
+                  Pattern = $Item.Value
+                }
+              }
+            }
+          }
+
+          if ($Findings) {
+            Write-Host "Unsafe public repository markers found:" -ForegroundColor Red
+            $Findings | Format-Table -AutoSize
+            throw "Public safety check failed: unsafe markers were found."
+          }
+
+          Write-Host "Public safety check passed." -ForegroundColor Green

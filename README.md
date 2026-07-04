@@ -82,3 +82,32 @@ Many scripts create HTML and CSV reports in a local output folder. Review output
 ## Security note
 
 Generated reports can contain sensitive operational information. Do not commit generated reports to a public repository unless they have been reviewed and sanitized.
+
+<!-- SCRIPT-CATALOG-START -->
+## Script catalog
+
+| Script | Area | Purpose | Risk level |
+|---|---|---|---|
+| [Compare-EntraAdminPimPersistentAccess.ps1](docs/scripts/Compare-EntraAdminPimPersistentAccess.md) | Microsoft Entra ID | Compares Entra admin role assignments with PIM eligibility or active schedule data. | Low - intended as read-only audit/reporting. |
+| [Export-ADOrganizationChartReport.ps1](docs/scripts/Export-ADOrganizationChartReport.md) | Active Directory | Creates an Active Directory organization chart report. | Low - intended as read-only audit/reporting. |
+| [Export-IntuneDeviceStorageReport.ps1](docs/scripts/Export-IntuneDeviceStorageReport.md) | Microsoft Intune | Reports Intune-managed device storage utilization. | Low - intended as read-only audit/reporting. |
+| [Export-IntuneWindowsInventoryReport.ps1](docs/scripts/Export-IntuneWindowsInventoryReport.md) | Microsoft Intune | Exports Windows device inventory and application information from Intune. | Low - intended as read-only audit/reporting. |
+| [Get-EntraDirectRoleAssignmentReport.ps1](docs/scripts/Get-EntraDirectRoleAssignmentReport.md) | Microsoft Entra ID | Lists direct Entra ID role assignments for privileged access review. | Low - intended as read-only audit/reporting. |
+| [Get-ExchangeOnlineMailboxQuotaReport.ps1](docs/scripts/Get-ExchangeOnlineMailboxQuotaReport.md) | Exchange Online | Reports Exchange Online mailbox quota and capacity information. | Low - intended as read-only audit/reporting. |
+| [Get-IntuneWindowsAppAssignmentReport.ps1](docs/scripts/Get-IntuneWindowsAppAssignmentReport.md) | Microsoft Intune | Audits Intune Windows application assignments. | Low - intended as read-only audit/reporting. |
+| [Get-LocalWindowsUpdatePolicyAudit.ps1](docs/scripts/Get-LocalWindowsUpdatePolicyAudit.md) | Windows | Audits local Windows Update policy configuration. | Low - intended as read-only audit/reporting. |
+| [Invoke-ADGroupAuditReport.ps1](docs/scripts/Invoke-ADGroupAuditReport.md) | Active Directory | Audits Active Directory groups, memberships and group-related findings. | Low - intended as read-only audit/reporting. |
+| [Invoke-ADUserComputerAuditReport.ps1](docs/scripts/Invoke-ADUserComputerAuditReport.md) | Active Directory | Audits Active Directory users, computers and stale object findings. | Low - intended as read-only audit/reporting. |
+| [Invoke-EntraIntuneAuditDashboard.ps1](docs/scripts/Invoke-EntraIntuneAuditDashboard.md) | Microsoft Intune | Creates an Entra ID and Intune audit dashboard/report. | Low - intended as read-only audit/reporting. |
+| [Invoke-EntraPrivilegedAccessAudit.ps1](docs/scripts/Invoke-EntraPrivilegedAccessAudit.md) | Microsoft Entra ID | Audits privileged Entra ID and Microsoft 365 role assignments. | Low - intended as read-only audit/reporting. |
+| [Invoke-ExchangeOnlineForwardingAudit.ps1](docs/scripts/Invoke-ExchangeOnlineForwardingAudit.md) | Exchange Online | Audits mailbox forwarding and Inbox rule forwarding settings. | Low - intended as read-only audit/reporting. |
+| [Invoke-ExchangeOnlineGroupAuditReport.ps1](docs/scripts/Invoke-ExchangeOnlineGroupAuditReport.md) | Exchange Online | Audits Exchange Online and Microsoft 365 mail-enabled groups. | Low - intended as read-only audit/reporting. |
+| [Invoke-GPOAuditReport.ps1](docs/scripts/Invoke-GPOAuditReport.md) | Group Policy | Audits Group Policy Objects, links, inheritance and stale GPO findings. | Medium - read-only collection, review any generated helper commands before use. |
+| [Invoke-IntuneExchangeReadOnlyAudit.ps1](docs/scripts/Invoke-IntuneExchangeReadOnlyAudit.md) | Microsoft Intune | Performs read-only Intune and Exchange Online configuration checks. | Low - intended as read-only audit/reporting. |
+| [Invoke-IntuneWindowsUpdateAuditReport.ps1](docs/scripts/Invoke-IntuneWindowsUpdateAuditReport.md) | Microsoft Intune | Audits Intune Windows Update policy configuration. | Low - intended as read-only audit/reporting. |
+| [Invoke-M365EntraCredentialExpiryAudit.ps1](docs/scripts/Invoke-M365EntraCredentialExpiryAudit.md) | Microsoft Entra ID | Audits Entra ID application credential expiry. | Low - intended as read-only audit/reporting. |
+| [Invoke-WindowsCertificateServiceAccountAudit.ps1](docs/scripts/Invoke-WindowsCertificateServiceAccountAudit.md) | Windows Server | Audits Windows certificates and service account usage. | Low - intended as read-only audit/reporting. |
+| [Invoke-WindowsServerLicenseAudit.ps1](docs/scripts/Invoke-WindowsServerLicenseAudit.md) | Windows Server | Audits Windows Server licensing status. | Low - intended as read-only audit/reporting. |
+| [Test-ServerPingAvailabilityReport.ps1](docs/scripts/Test-ServerPingAvailabilityReport.md) | Windows Server | Tests server availability using explicitly provided host names. | Low - intended as read-only audit/reporting. |
+
+<!-- SCRIPT-CATALOG-END -->

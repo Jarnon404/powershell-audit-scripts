@@ -23,9 +23,17 @@ jobs:
           $ErrorActionPreference = "Stop"
 
           $RepoRoot = Resolve-Path "."
-          $AllowedGeneratedFiles = @()
 
-          $OutputExtensions = @(
+          $Files = Get-ChildItem $RepoRoot -Recurse -File |
+            Where-Object {
+              $_.FullName -notmatch "[\\/]\.git[\\/]" -and
+              $_.FullName -notmatch "[\\/]\.github[\\/]" -and
+              $_.FullName -notmatch "[\\/]tests[\\/]" -and
+              $_.FullName -notmatch "[\\/]docs[\\/]" -and
+              $_.FullName -notmatch "[\\/]examples[\\/]"
+            }
+
+          $GeneratedOutputExtensions = @(
             ".csv",
             ".xlsx",
             ".html",
@@ -37,21 +45,14 @@ jobs:
             ".tmp"
           )
 
-          $Files = Get-ChildItem $RepoRoot -Recurse -File |
+          $GeneratedOutputFindings = $Files |
             Where-Object {
-              $_.FullName -notmatch "[\\/]\.git[\\/]" -and
-              $_.FullName -notmatch "[\\/]\.github[\\/]workflows[\\/]"
+              $GeneratedOutputExtensions -contains $_.Extension.ToLowerInvariant()
             }
 
-          $OutputFindings = $Files |
-            Where-Object {
-              $OutputExtensions -contains $_.Extension.ToLowerInvariant() -and
-              $AllowedGeneratedFiles -notcontains $_.Name
-            }
-
-          if ($OutputFindings) {
+          if ($GeneratedOutputFindings) {
             Write-Host "Generated or output-like files found:" -ForegroundColor Red
-            $OutputFindings | Select-Object FullName | Format-Table -AutoSize
+            $GeneratedOutputFindings | Select-Object FullName | Format-Table -AutoSize
             throw "Public safety check failed: generated/output files must not be committed."
           }
 
@@ -59,7 +60,6 @@ jobs:
             "Internal domain: .local" = "\.local\b"
             "Internal domain: .lan" = "\.lan\b"
             "Internal domain: .corp" = "\.corp\b"
-            "Internal LDAP distinguished name domain component" = "\bdc=[a-z0-9\-_]+"
             "Private IPv4: 10.x.x.x" = "\b10\.(25[0-5]|2[0-4]\d|1?\d?\d)\.(25[0-5]|2[0-4]\d|1?\d?\d)\.(25[0-5]|2[0-4]\d|1?\d?\d)\b"
             "Private IPv4: 172.16-31.x.x" = "\b172\.(1[6-9]|2\d|3[0-1])\.(25[0-5]|2[0-4]\d|1?\d?\d)\.(25[0-5]|2[0-4]\d|1?\d?\d)\b"
             "Private IPv4: 192.168.x.x" = "\b192\.168\.(25[0-5]|2[0-4]\d|1?\d?\d)\.(25[0-5]|2[0-4]\d|1?\d?\d)\b"

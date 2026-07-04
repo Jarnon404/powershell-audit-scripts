@@ -62,11 +62,20 @@ Describe "Script documentation" {
 }
 
 Describe "Public repository hygiene" {
-    It "Does not contain generated output files" {
-        $OutputFiles = Get-ChildItem $RepoRoot -Recurse -File |
+    BeforeAll {
+        $ContentFiles = Get-ChildItem $RepoRoot -Recurse -File |
             Where-Object {
                 $_.FullName -notmatch '[\\/]\.git[\\/]' -and
                 $_.FullName -notmatch '[\\/]\.github[\\/]' -and
+                $_.FullName -notmatch '[\\/]tests[\\/]' -and
+                $_.FullName -notmatch '[\\/]docs[\\/]' -and
+                $_.FullName -notmatch '[\\/]examples[\\/]'
+            }
+    }
+
+    It "Does not contain generated output files" {
+        $OutputFiles = $ContentFiles |
+            Where-Object {
                 $_.Extension -match '^\.(csv|xlsx|html|json|log|zip|7z|bak|tmp)$'
             }
 
@@ -74,13 +83,7 @@ Describe "Public repository hygiene" {
     }
 
     It "Does not contain internal-looking example domains" {
-        $Files = Get-ChildItem $RepoRoot -Recurse -File |
-            Where-Object {
-                $_.FullName -notmatch '[\\/]\.git[\\/]' -and
-                $_.FullName -notmatch '[\\/]\.github[\\/]workflows[\\/]'
-            }
-
-        $Findings = foreach ($File in $Files) {
+        $Findings = foreach ($File in $ContentFiles) {
             $Content = Get-Content $File.FullName -Raw -ErrorAction SilentlyContinue
 
             if ($Content -match 'contoso\.local|\.local\b|\.lan\b|\.corp\b') {

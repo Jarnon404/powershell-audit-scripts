@@ -1,0 +1,35 @@
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.tmp
+*.temp
+*.log
+
+# PowerShell generated output
+*.csv
+*.xlsx
+*.xml
+*.jsonl
+
+# Generated reports
+AuditReports/
+Reports/
+Output/
+out/
+dist/
+
+# Archives
+*.zip
+*.7z
+*.rar
+
+# Secrets and local config
+.env
+.env.*
+*.key
+*.pem
+*.pfx
+*.p12
+
+# Keep GitHub Pages entry points trackable where used
+!docs/index.html

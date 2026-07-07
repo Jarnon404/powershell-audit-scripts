@@ -136,3 +136,7 @@ Generated reports can contain sensitive operational information. Do not commit g
 | [Test-ServerPingAvailabilityReport.ps1](docs/scripts/Test-ServerPingAvailabilityReport.md) | Windows Server | Tests server availability using explicitly provided host names. | Low - intended as read-only audit/reporting. |
 
 <!-- SCRIPT-CATALOG-END -->
+
+## Public safety note
+
+This repository is intended to contain only public-safe material. Do not commit customer-specific data, tenant identifiers, credentials, generated audit reports, internal hostnames, private IP addresses or environment-specific exports.
